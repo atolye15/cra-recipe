@@ -2,6 +2,27 @@
 
 This is a step-by-step guide to customize CRA for Atolye15 projects. You can review [CRA Starter](https://github.com/atolye15/cra-starter)
 
+## Table of Contents
+
+* [Step 1: Creating a new app](#step-1-creating-a-new-app)
+* [Step 2: Removing CRA example files](#step-2-removing-cra-example-files)
+* [Step 3: Make TypeScript more strict](#step-3-make-typescript-more-strict)
+* [Step 4: Installing Prettier](#step-4-installing-prettier)
+* [Step 5: Installing TSLint](#step-5-installing-tslint)
+* [Step 6: Enabling Sass](#step-6-enabling-sass)
+* [Step 7: Installing stylelint](#step-7-installing-stylelint)
+* [Step 8: Setting up our test environment](#step-8-setting-up-our-test-environment)
+* [Step 9: Enabling hot reloading](#step-9-enabling-hot-reloading)
+* [Step 10: Organizing Folder Structure](#step-10-organizing-folder-structure)
+* [Step 11: Adding Storybook](#step-11-adding-storybook)
+* [Step 12: Adding React Router](#step-12-adding-react-router)
+* [Step 13: Enabling code-splitting](#step-13-enabling-code-splitting)
+* [Step 14: Adding CircleCI config](#step-14-adding-circleci-config)
+* [Step 15: Auto-deploy to Surge.sh](#step-15-auto-deploy-to-surgesh)
+* [Step 16: Github Settings](#step-16-github-settings)
+* [Step 17 Final Touches](#step-17-final-touches)
+* [Step 18: Starting to Development <g-emoji class="g-emoji" alias="tada" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png">🎉</g-emoji>](#step-18-starting-to-development-)
+
 ## Step 1: Creating a new app
 
 First of all, we need to initialize our codebase via cra command.
