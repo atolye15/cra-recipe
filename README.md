@@ -1,6 +1,6 @@
 # CRA from Scratch
 
-This is a step-by-step guide to customize CRA for Atolye15 projects. You can review [CRA Starter](https://github.com/atolye15/cra-starter)
+This is a step-by-step guide to customize CRA for Atolye15 projects. You can review [CRA Starter](https://github.com/atolye15/cra-starter) project to see how your application looks like when all steps followed.
 
 ## Table of Contents
 
