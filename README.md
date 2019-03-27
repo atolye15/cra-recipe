@@ -35,7 +35,7 @@ You will get an application which has;
 
 ## Step 1: Creating a new app
 
-First of all, we need to initialize our codebase via cra command.
+First of all, we need to initialize our codebase via CRA command.
 
 ```
 yarn create react-app cra-starter --typescript
@@ -58,7 +58,7 @@ We want to keep type safety as strict as possibble. In order to do that, we upda
 
 ## Step 4: Installing Prettier
 
-We want to format our code automatically. So, we need to install prettier.
+We want to format our code automatically. So, we need to install Prettier.
 
 ```
 yarn add prettier --dev
@@ -102,7 +102,7 @@ Finally, we update `package.json` with related format scripts.
 
 ## Step 5: Installing TSLint
 
-We want to have a consistency in our codebase and also want to catch mistakes. So, we need to install tslint.
+We want to have consistency in our codebase and also want to catch mistakes. So, we need to install tslint.
 
 ```
 yarn add tslint tslint-config-prettier tslint-consistent-codestyle tslint-react tslint-react-a11y --dev
@@ -126,7 +126,7 @@ yarn add tslint tslint-config-prettier tslint-consistent-codestyle tslint-react 
 }
 ```
 
-Finally, we need to update `package.json` to tslint scripts.
+Finally, we need to update `package.json` for TSLint scripts.
 
 ```
 "lint:ts": "tsc && tslint --project tsconfig.json",
@@ -250,7 +250,7 @@ yarn add enzyme enzyme-adapter-react-16 react-test-renderer --dev
 yarn add @types/enzyme @types/enzyme-adapter-react-16
 ```
 
-Also we need to install `enzyme-to-json` to more simpler snapshosts.
+Also we need to install `enzyme-to-json` for simpler snapshosts.
 
 ```
 yarn add enzyme-to-json --dev
@@ -428,7 +428,7 @@ After that, we also need to add `info` addon and `react-docgen-typescript-loader
 yarn add @storybook/addon-info react-docgen-typescript-loader --dev`
 ```
 
-We need to update storybook config to register info addon, and stories directory
+We need to update storybook config to register info addon, and stories directory.
 
 ```ts
 // .storybook/config.ts
@@ -662,7 +662,7 @@ workflows:
             - build_dependencies
 ```
 
-After that we need to enable, CircleCI for our repository.
+After that we need to enable CircleCI for our repository.
 
 ## Step 15: Auto-deploy to Surge.sh
 
