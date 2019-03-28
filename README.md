@@ -247,7 +247,7 @@ We'll use `jest` with `enzyme`.
 
 ```
 yarn add enzyme enzyme-adapter-react-16 react-test-renderer --dev
-yarn add @types/enzyme @types/enzyme-adapter-react-16
+yarn add @types/enzyme @types/enzyme-adapter-react-16 --dev
 ```
 
 Also we need to install `enzyme-to-json` for simpler snapshosts.
