@@ -436,7 +436,7 @@ yarn add @types/storybook__react --dev
 After that, we also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories.
 
 ```
-yarn add @storybook/addon-info react-docgen-typescript-loader --dev`
+yarn add @storybook/addon-info react-docgen-typescript-loader --dev
 ```
 
 We need to update storybook config to register info addon, and stories directory.
