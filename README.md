@@ -284,6 +284,17 @@ Finally, we update our `package.json` for jest configuration.
 }
 ```
 
+Before the testing, we need to add our setup file to initialize enzyme.
+
+```ts
+// src/setupTests.ts
+
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+```
+
 With this config, we are able to run tests with snapshots and create coverage. Let's add a simple test to verify our setup.
 
 ```tsx
