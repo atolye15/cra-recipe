@@ -867,3 +867,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Step 18: Starting to Development 🎉
 
 Everything is done! You can start to develop your next awesome React application now on 🚀
+
+## Related
+
+* [crna-recipe](https://github.com/atolye15/crna-recipe) - React Native App Creation Recipe
