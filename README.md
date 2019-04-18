@@ -18,7 +18,7 @@ You will get an application which has;
 * [Step 2: Removing CRA example files](#step-2-removing-cra-example-files)
 * [Step 3: Make TypeScript more strict](#step-3-make-typescript-more-strict)
 * [Step 4: Installing Prettier](#step-4-installing-prettier)
-* [Step 5: Installing TSLint](#step-5-installing-tslint)
+* [Step 5: Installing ESLint](#step-5-installing-eslint)
 * [Step 6: Enabling Sass](#step-6-enabling-sass)
 * [Step 7: Installing stylelint](#step-7-installing-stylelint)
 * [Step 8: Setting up our test environment](#step-8-setting-up-our-test-environment)
@@ -88,50 +88,106 @@ Also, we want to enable format on save on VSCode.
 
 {
   "editor.formatOnSave": true,
-  "prettier.tslintIntegration": true
+  "prettier.eslintIntegration": true
 }
 ```
 
 Finally, we update `package.json` with related format scripts.
 
 ```
-"format:ts": "prettier --write 'src/**/*.{ts,tsx}' && tslint --fix --project .",
+"format:ts": "prettier --write 'src/**/*.{ts,tsx}' && eslint --fix .",
 "format": "yarn run format:ts",
 "format:check": "prettier -c 'src/**/*.{ts,tsx}'"
 ```
 
-## Step 5: Installing TSLint
+## Step 5: Installing ESLint
 
-We want to have consistency in our codebase and also want to catch mistakes. So, we need to install tslint.
+We want to have consistency in our codebase and also want to catch mistakes. So, we need to install ESLint.
 
 ```
-yarn add tslint tslint-config-prettier tslint-consistent-codestyle tslint-react tslint-react-a11y --dev
+yarn add eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-eslint-comments eslint-plugin-import eslint-plugin-jest eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-react @typescript-eslint/eslint-plugin @typescript-eslint/parser --dev
 ```
 
 ```json
-# tslint.json
+# .eslintrc
 
 {
-  "defaultSeverity": "error",
+  "parser": "@typescript-eslint/parser",
   "extends": [
-    "tslint-react",
-    "tslint-react-a11y",
-    "tslint-config-prettier",
-    "tslint-consistent-codestyle"
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:eslint-comments/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:jest/recommended"
   ],
-  "jsRules": {},
-  "rules": {},
-  "rulesDirectory": [],
-  "linterOptions": {}
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "jsx-a11y",
+    "import",
+    "prettier",
+    "jest",
+    "eslint-comments"
+  ],
+  "rules": {
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/prop-types": "off",
+    "react/button-has-type": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**/*.js",
+          "config-overrides.js",
+          "src/setupTests.ts",
+          "src/components/**/*.stories.tsx",
+          "src/**/*.test.{ts,tsx}"
+        ]
+      }
+    ],
+    "prettier/prettier": ["error"]
+  }
 }
 ```
 
-Finally, we need to update `package.json` for TSLint scripts.
+```
+# .eslintignore
+
+public
+build
+coverage
+!/.storybook
+react-app-env.d.ts
+```
+
+```json
+.vscode/settings.json
+
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    { "language": "typescript", "autoFix": true },
+    { "language": "typescriptreact", "autoFix": true }
+  ]
+}
+```
+
+We need to update `package.json` for ESLint scripts.
 
 ```
-"lint:ts": "tsc && tslint --project tsconfig.json",
+"lint:ts": "tsc && eslint .",
 "lint": "yarn run lint:ts",
-"format:ts": "prettier --write 'src/**/*.{ts,tsx}' && tslint --fix --project .",
+"format:ts": "prettier --write 'src/**/*.{ts,tsx}' && eslint --fix .",
 ```
 
 ## Step 6: Enabling Sass
@@ -352,6 +408,7 @@ setConfig({
 In order to update babel config for hot loader, we need to create a `config-overrides.js` file on the root.
 
 ```ts
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { override, addBabelPlugin } = require('customize-cra');
 
 module.exports = override(addBabelPlugin('react-hot-loader/babel'));
@@ -492,8 +549,8 @@ import { storiesOf } from '@storybook/react';
 import Button from './Button';
 
 storiesOf('Button', module)
-  .add('Primary', () => <Button primary={true}>Primary Button</Button>)
-  .add('Secondary', () => <Button secondary={true}>Secondary Button</Button>);
+  .add('Primary', () => <Button primary>Primary Button</Button>)
+  .add('Secondary', () => <Button secondary>Secondary Button</Button>);
 ```
 
 ## Step 12: Adding React Router
@@ -542,8 +599,8 @@ import Feed from './Feed';
 
 const Routes: FunctionComponent = () => (
   <Switch>
-    <Route path="/" exact={true} component={Home} />
-    <Route path="/feed" exact={true} component={Feed} />
+    <Route path="/" exact component={Home} />
+    <Route path="/feed" exact component={Feed} />
   </Switch>
 );
 
@@ -589,7 +646,7 @@ import Loading from '../../components/Loading';
 
 const LoadableHome = Loadable({
   loader: () => import('./Home'),
-  loading: Loading as any,
+  loading: Loading,
 });
 
 export default LoadableHome;
@@ -604,7 +661,7 @@ import Loading from '../../components/Loading';
 
 const LoadableFeed = Loadable({
   loader: () => import('./Feed'),
-  loading: Loading as any,
+  loading: Loading,
 });
 
 export default LoadableFeed;
@@ -831,7 +888,7 @@ Launches coverage reporter. You can view the details from `coverage` folder.
 
 ### `yarn lint`
 
-Runs TSLint and StyleLint. If any lint errors found, then it exits with code 1.
+Runs ESLint and StyleLint. If any lint errors found, then it exits with code 1.
 
 ### `yarn format`
 
