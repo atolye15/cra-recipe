@@ -138,14 +138,19 @@ yarn add eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-eslint
   ],
   "rules": {
     "@typescript-eslint/indent": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/prop-types": "off",
+    "react/button-has-type": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
         "devDependencies": [
           ".storybook/**/*.js",
           "config-overrides.js",
-          "src/components/**/*.stories.jsx",
-          "src/**/*.test.{js,jsx}"
+          "src/setupTests.ts",
+          "src/components/**/*.stories.tsx",
+          "src/**/*.test.{ts,tsx}"
         ]
       }
     ],
@@ -161,6 +166,7 @@ public
 build
 coverage
 !/.storybook
+react-app-env.d.ts
 ```
 
 ```json
@@ -543,8 +549,8 @@ import { storiesOf } from '@storybook/react';
 import Button from './Button';
 
 storiesOf('Button', module)
-  .add('Primary', () => <Button primary={true}>Primary Button</Button>)
-  .add('Secondary', () => <Button secondary={true}>Secondary Button</Button>);
+  .add('Primary', () => <Button primary>Primary Button</Button>)
+  .add('Secondary', () => <Button secondary>Secondary Button</Button>);
 ```
 
 ## Step 12: Adding React Router
@@ -593,8 +599,8 @@ import Feed from './Feed';
 
 const Routes: FunctionComponent = () => (
   <Switch>
-    <Route path="/" exact={true} component={Home} />
-    <Route path="/feed" exact={true} component={Feed} />
+    <Route path="/" exact component={Home} />
+    <Route path="/feed" exact component={Feed} />
   </Switch>
 );
 
@@ -640,7 +646,7 @@ import Loading from '../../components/Loading';
 
 const LoadableHome = Loadable({
   loader: () => import('./Home'),
-  loading: Loading as any,
+  loading: Loading,
 });
 
 export default LoadableHome;
@@ -655,7 +661,7 @@ import Loading from '../../components/Loading';
 
 const LoadableFeed = Loadable({
   loader: () => import('./Feed'),
-  loading: Loading as any,
+  loading: Loading,
 });
 
 export default LoadableFeed;
