@@ -488,6 +488,7 @@ We need to initialize the Storybook on our project.
 ```
 npx -p @storybook/cli sb init
 yarn add @types/storybook__react --dev
+yarn add @storybook/theming --dev
 ```
 
 After that, we also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories.
