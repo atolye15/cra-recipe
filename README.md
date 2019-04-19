@@ -113,6 +113,9 @@ yarn add eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-eslint
 
 {
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "extends": [
     "airbnb",
     "plugin:@typescript-eslint/recommended",
