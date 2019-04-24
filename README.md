@@ -374,7 +374,7 @@ Also, verify coverage report with `yarn coverage`.
 We want to take advantage of hot reloading and don't want to lose React's current state. In order to do that we can use react hot loader. Since, we use CRA and don't want to eject it, we need to use `customize-cra` package.
 
 ```
-yarn add react-app-rewired customize-cra --dev
+yarn add react-app-rewired customize-cra @hot-loader/react-dom --dev
 ```
 
 After the installation we need to update `package.json` scripts to use `react-app-rewired`
@@ -409,9 +409,14 @@ In order to update babel config for hot loader, we need to create a `config-over
 
 ```ts
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { override, addBabelPlugin } = require('customize-cra');
+const { override, addBabelPlugin, addWebpackAlias } = require('customize-cra');
 
-module.exports = override(addBabelPlugin('react-hot-loader/babel'));
+module.exports = override(
+  addBabelPlugin('react-hot-loader/babel'),
+  addWebpackAlias({
+    'react-dom': '@hot-loader/react-dom',
+  }),
+);
 ```
 
 Lastly, we need to use hot HOC.
@@ -419,9 +424,10 @@ Lastly, we need to use hot HOC.
 ```tsx
 // src/App.tsx
 
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
+import React, { FunctionComponent, Fragment } from 'react';
 
-export default hot(module)(App);
+export default hot(App);
 ```
 
 ## Step 10: Organizing Folder Structure
