@@ -105,57 +105,16 @@ Finally, we update `package.json` with related format scripts.
 We want to have consistency in our codebase and also want to catch mistakes. So, we need to install ESLint.
 
 ```
-yarn add eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-eslint-comments eslint-plugin-import eslint-plugin-jest eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-react @typescript-eslint/eslint-plugin @typescript-eslint/parser --dev
+yarn add eslint @atolye15/eslint-config --dev
 ```
 
 ```json
 # .eslintrc
 
 {
-  "parser": "@typescript-eslint/parser",
   "extends": [
-    "airbnb",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "plugin:eslint-comments/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
-    "plugin:jest/recommended"
-  ],
-  "env": {
-    "browser": true,
-    "jest": true
-  },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "jsx-a11y",
-    "import",
-    "prettier",
-    "jest",
-    "eslint-comments"
-  ],
-  "rules": {
-    "@typescript-eslint/indent": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-    "react/prop-types": "off",
-    "react/button-has-type": "off",
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": [
-          ".storybook/**/*.js",
-          "config-overrides.js",
-          "src/setupTests.ts",
-          "src/components/**/*.stories.tsx",
-          "src/**/*.test.{ts,tsx}"
-        ]
-      }
-    ],
-    "prettier/prettier": ["error"]
-  }
+    "@atolye15/eslint-config"
+  ]
 }
 ```
 
@@ -203,80 +162,14 @@ yarn add node-sass --dev
 We also want a linter for our sass files. We need to install `stylelint`.
 
 ```
-yarn add stylelint stylelint-config-prettier stylelint-config-sass-guidelines stylelint-declaration-block-no-ignored-properties stylelint-declaration-strict-value stylelint-order prettier-stylelint --dev
+yarn add stylelint stylelint-config-prettier prettier-stylelint @atolye15/stylelint-config --dev
 ```
 
 ```json
 # stylelintrc
 
 {
-  "extends": ["stylelint-config-sass-guidelines", "stylelint-config-prettier"],
-  "plugins": [
-    "stylelint-declaration-strict-value",
-    "stylelint-declaration-block-no-ignored-properties",
-    "stylelint-order",
-    "stylelint-scss"
-  ],
-  "rules": {
-    "media-query-list-comma-space-after": "always-single-line",
-    "selector-class-pattern": null,
-    "scale-unlimited/declaration-strict-value": [
-      ["color", "z-index"],
-      {
-        "ignoreKeywords": "inherit"
-      }
-    ],
-    "plugin/declaration-block-no-ignored-properties": true,
-    "max-nesting-depth": 3,
-    "order/properties-alphabetical-order": null,
-    "order/properties-order": [
-      [
-        "position",
-        "z-index",
-        "top",
-        "right",
-        "bottom",
-        "left",
-        "display",
-        "overflow",
-        "width",
-        "min-width",
-        "max-width",
-        "height",
-        "min-height",
-        "max-height",
-        "box-sizing",
-        "flex",
-        "flex-basis",
-        "flex-direction",
-        "flex-flow",
-        "flex-grow",
-        "flex-shrink",
-        "flex-wrap",
-        "align-content",
-        "align-items",
-        "align-self",
-        "justify-content",
-        "order",
-        "padding",
-        "padding-top",
-        "padding-right",
-        "padding-bottom",
-        "padding-left",
-        "border",
-        "border-top",
-        "border-right",
-        "border-bottom",
-        "border-left",
-        "margin",
-        "margin-top",
-        "margin-right",
-        "margin-bottom",
-        "margin-left"
-      ],
-      { "unspecified": "bottomAlphabetical" }
-    ]
-  }
+  "extends": ["@atolye15/stylelint-config", "stylelint-prettier/recommended"]
 }
 ```
 
