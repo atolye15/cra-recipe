@@ -37,8 +37,8 @@ You will get an application which has;
 
 First of all, we need to initialize our codebase via CRA command.
 
-```
-yarn create react-app cra-starter --typescript
+```sh
+npx create-react-app cra-starter --typescript
 cd cra-starter
 yarn start
 ```
@@ -51,7 +51,7 @@ In order to create our stack, we need to remove unnecessary CRA files.
 
 We want to keep type safety as strict as possibble. In order to do that, we update `tsconfig.json` with the settings below.
 
-```
+```jsonc
 "noImplicitAny": true,
 "noImplicitReturns": true,
 ```
@@ -60,13 +60,13 @@ We want to keep type safety as strict as possibble. In order to do that, we upda
 
 We want to format our code automatically. So, we need to install Prettier.
 
-```
+```sh
 yarn add prettier --dev
 ```
 
-```json
-# .prettierrc
+`.prettierrc`
 
+```jsonc
 {
   "printWidth": 100,
   "singleQuote": true,
@@ -74,28 +74,26 @@ yarn add prettier --dev
 }
 ```
 
-```
-# .prettierignore
+`.prettierignore`
 
+```ignore
 build
-coverage
 ```
 
 Also, we want to enable format on save on VSCode.
 
-```json
-# .vscode/settings.json
+`.vscode/settings.json`
 
+```json
 {
   "editor.formatOnSave": true,
-  "prettier.eslintIntegration": true
 }
 ```
 
 Finally, we update `package.json` with related format scripts.
 
-```
-"format:ts": "prettier --write 'src/**/*.{ts,tsx}' && eslint --fix .",
+```json
+"format:ts": "prettier --write 'src/**/*.{ts,tsx}'",
 "format": "yarn run format:ts",
 "format:check": "prettier -c 'src/**/*.{ts,tsx}'"
 ```
@@ -104,13 +102,12 @@ Finally, we update `package.json` with related format scripts.
 
 We want to have consistency in our codebase and also want to catch mistakes. So, we need to install ESLint.
 
-```
+```sh
 yarn add eslint @atolye15/eslint-config --dev
 ```
+`.eslintrc`
 
-```json
-# .eslintrc
-
+```jsonc
 {
   "extends": [
     "@atolye15/eslint-config"
@@ -118,19 +115,17 @@ yarn add eslint @atolye15/eslint-config --dev
 }
 ```
 
-```
-# .eslintignore
+`.eslintignore`
 
+```ignore
 public
 build
-coverage
-!/.storybook
 react-app-env.d.ts
 ```
 
-```json
-.vscode/settings.json
+`.vscode/settings.json`
 
+```json
 {
   "eslint.validate": [
     "javascript",
@@ -143,17 +138,18 @@ react-app-env.d.ts
 
 We need to update `package.json` for ESLint scripts.
 
-```
-"lint:ts": "tsc && eslint .",
+```json
 "lint": "yarn run lint:ts",
-"format:ts": "prettier --write 'src/**/*.{ts,tsx}' && eslint --fix .",
+"lint:ts": "tsc && yarn lint:eslint",
+"lint:eslint": "eslint 'src/**/*.{ts,tsx}'",
+"format:ts": "prettier --write 'src/**/*.{ts,tsx}' && yarn lint:eslint --fix",
 ```
 
 ## Step 6: Enabling Sass
 
 CRA comes with Sass support out of the box. In order to enable it, we only add `node-sass` to our project.
 
-```
+```sh
 yarn add node-sass --dev
 ```
 
@@ -161,13 +157,13 @@ yarn add node-sass --dev
 
 We also want a linter for our sass files. We need to install `stylelint`.
 
-```
-yarn add stylelint stylelint-config-prettier prettier-stylelint @atolye15/stylelint-config --dev
+```sh
+yarn add stylelint stylelint-config-prettier stylelint-prettier @atolye15/stylelint-config --dev
 ```
 
-```json
-# stylelintrc
+`.stylelintrc`
 
+```jsonc
 {
   "extends": ["@atolye15/stylelint-config", "stylelint-prettier/recommended"]
 }
@@ -175,18 +171,19 @@ yarn add stylelint stylelint-config-prettier prettier-stylelint @atolye15/stylel
 
 Finally, we need to update `package.json` and `.vscode/settings.json`
 
-```
-# package.json
+`package.json`
 
-"lint:css": "stylelint --syntax scss 'src/**/*.scss'",
+```json
+"lint:css": "stylelint --syntax scss \"src/**/*.scss\"",
 "lint": "yarn run lint:ts && yarn run lint:css",
-"format:css": "prettier-stylelint --quiet --write 'src/**/*.scss'",
+"format:css": "stylelint --fix --syntax scss \"src/**/*.scss\"",
 "format": "yarn run format:ts && yarn run format:css"
 ```
 
-```
-.vscode/settings.json
+`.vscode/settings.json`
 
+```json
+// ... ,
 "prettier.stylelintIntegration": true
 ```
 
@@ -194,22 +191,22 @@ Finally, we need to update `package.json` and `.vscode/settings.json`
 
 We'll use `jest` with `enzyme`.
 
-```
+```sh
 yarn add enzyme enzyme-adapter-react-16 react-test-renderer --dev
 yarn add @types/enzyme @types/enzyme-adapter-react-16 --dev
 ```
 
 Also we need to install `enzyme-to-json` for simpler snapshosts.
 
-```
+```sh
 yarn add enzyme-to-json --dev
 ```
 
-Finally, we update our `package.json` for jest configuration.
+We update our `package.json` for jest configuration.
 
-```
+```json
 "scripts": {
-  "coverage": "yarn run test --coverage"
+  "coverage": "yarn run test -- --coverage"
 },
 "jest": {
   "snapshotSerializers": [
@@ -233,11 +230,27 @@ Finally, we update our `package.json` for jest configuration.
 }
 ```
 
+And finally, we need to add the `coverage` to `.gitignore` and `.prettierignore`.
+
+`.eslintignore`
+
+```ignore
+# ...
+coverage
+```
+
+`.prettierignore`
+
+```ignore
+# ...
+coverage
+```
+
 Before the testing, we need to add our setup file to initialize enzyme.
 
-```ts
-// src/setupTests.ts
+`src/setupTests.ts`
 
+```ts
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -246,9 +259,9 @@ configure({ adapter: new Adapter() });
 
 With this config, we are able to run tests with snapshots and create coverage. Let's add a simple test to verify our setup.
 
-```tsx
-// src/App.test.tsx
+`src/App.test.tsx`
 
+```tsx
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
@@ -266,13 +279,13 @@ Also, verify coverage report with `yarn coverage`.
 
 We want to take advantage of hot reloading and don't want to lose React's current state. In order to do that we can use react hot loader. Since, we use CRA and don't want to eject it, we need to use `customize-cra` package.
 
-```
+```sh
 yarn add react-app-rewired customize-cra @hot-loader/react-dom --dev
 ```
 
 After the installation we need to update `package.json` scripts to use `react-app-rewired`
 
-```
+```json
 "start": "react-app-rewired start",
 "build": "react-app-rewired build",
 "test": "react-app-rewired test",
@@ -281,15 +294,15 @@ After the installation we need to update `package.json` scripts to use `react-ap
 
 Now, we can install `react-hot-loader`.
 
-```
+```sh
 yarn add react-hot-loader
 ```
 
 Also we need to update hot reloader config.
 
-```tsx
-// src/index.tsx
+`src/index.tsx`
 
+```tsx
 import { setConfig } from 'react-hot-loader';
 
 setConfig({
@@ -314,11 +327,11 @@ module.exports = override(
 
 Lastly, we need to use hot HOC.
 
-```tsx
-// src/App.tsx
+`src/App.tsx`
 
+```tsx
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import React, { FunctionComponent, Fragment } from 'react';
 
 export default hot(App);
 ```
@@ -384,45 +397,30 @@ src/
 
 We need to initialize the Storybook on our project.
 
+```sh
+npx -p @storybook/cli sb init --type react
 ```
-npx -p @storybook/cli sb init
+
+After that, you may need to add types.
+
+```sh
 yarn add @types/storybook__react --dev
-yarn add @storybook/theming --dev
 ```
 
-After that, we also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories.
+We also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories (Optional but recommended).
 
-```
+```sh
 yarn add @storybook/addon-info react-docgen-typescript-loader --dev
 ```
 
-We need to update storybook config to register info addon, and stories directory.
+We have to use the [custom Webpack config in full control mode, extending default configs](https://storybook.js.org/docs/configurations/custom-webpack-config/#full-control-mode--default) by creating a `webpack.config.js` file in our Storybook configuration directory (by default, it’s `.storybook`):
 
-```ts
-// .storybook/config.ts
-
-import { configure, addDecorator } from '@storybook/react';
-import { withInfo } from '@storybook/addon-info';
-
-// automatically import all files ending in *.stories.tsx
-const req = require.context('../src/components', true, /.stories.tsx$/);
-
-function loadStories() {
-  addDecorator(withInfo);
-  req.keys().forEach(req);
-}
-
-configure(loadStories, module);
-```
-
-Lastly, we need to update storybook webpack config.
+`.storybook/webpack.config.js`
 
 ```js
-// .storybook/webpack.config.js
-
-module.exports = ({ config }) => {
+module.exports = ({ config, mode }) => {
   config.module.rules.push({
-    test: /\.tsx?$/,
+    test: /\.(ts|tsx)$/,
     use: [
       {
         loader: require.resolve('babel-loader'),
@@ -438,11 +436,32 @@ module.exports = ({ config }) => {
 };
 ```
 
+Since we use `typescript`, we can change the file extensions (`addons` and `config`) to `.ts` in `.storybook` folder. Then we need to update storybook config to register info addon, and stories directory.
+
+`.storybook/config.ts`
+
+```ts
+import { configure, addDecorator } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
+
+// automatically import all files ending in *.stories.tsx
+const req = require.context('../src/components', true, /.stories.tsx$/);
+
+function loadStories() {
+  addDecorator(withInfo);
+  req.keys().forEach(req);
+}
+
+configure(loadStories, module);
+```
+
+> We will place the stories inside component folders, you can delete the `stories` folder which is created by storybook initialization process.
+
 Let's create a story for our Button component.
 
-```tsx
-// src/components/Button/Button.stories.tsx
+`src/components/Button/Button.stories.tsx`
 
+```tsx
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
