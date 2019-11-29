@@ -180,13 +180,6 @@ Finally, we need to update `package.json` and `.vscode/settings.json`
 "format": "yarn run format:ts && yarn run format:css"
 ```
 
-`.vscode/settings.json`
-
-```json
-// ... ,
-"prettier.stylelintIntegration": true
-```
-
 ## Step 8: Setting up our test environment
 
 We'll use `jest` with `enzyme`.
@@ -206,7 +199,7 @@ We update our `package.json` for jest configuration.
 
 ```json
 "scripts": {
-  "coverage": "yarn run test -- --coverage"
+  "coverage": "yarn run test --coverage"
 },
 "jest": {
   "snapshotSerializers": [
@@ -402,10 +395,6 @@ npx -p @storybook/cli sb init --type react
 ```
 
 After that, you may need to add types.
-
-```sh
-yarn add @types/storybook__react --dev
-```
 
 We also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories (Optional but recommended).
 
