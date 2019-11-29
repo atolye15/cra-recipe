@@ -4,34 +4,34 @@ This is a step-by-step guide to customize CRA for Atolye15 projects. You can rev
 
 You will get an application which has;
 
-* TypeScript
-* Sass
-* Linting
-* Formatting
-* Testing
-* CI/CD
-* Storybook
+- TypeScript
+- Sass
+- Linting
+- Formatting
+- Testing
+- CI/CD
+- Storybook
 
 ## Table of Contents
 
-* [Step 1: Creating a new app](#step-1-creating-a-new-app)
-* [Step 2: Removing CRA example files](#step-2-removing-cra-example-files)
-* [Step 3: Make TypeScript more strict](#step-3-make-typescript-more-strict)
-* [Step 4: Installing Prettier](#step-4-installing-prettier)
-* [Step 5: Installing ESLint](#step-5-installing-eslint)
-* [Step 6: Enabling Sass](#step-6-enabling-sass)
-* [Step 7: Installing stylelint](#step-7-installing-stylelint)
-* [Step 8: Setting up our test environment](#step-8-setting-up-our-test-environment)
-* [Step 9: Enabling hot reloading](#step-9-enabling-hot-reloading)
-* [Step 10: Organizing Folder Structure](#step-10-organizing-folder-structure)
-* [Step 11: Adding Storybook](#step-11-adding-storybook)
-* [Step 12: Adding React Router](#step-12-adding-react-router)
-* [Step 13: Enabling code-splitting](#step-13-enabling-code-splitting)
-* [Step 14: Adding CircleCI config](#step-14-adding-circleci-config)
-* [Step 15: Auto-deploy to Surge.sh](#step-15-auto-deploy-to-surgesh)
-* [Step 16: Github Settings](#step-16-github-settings)
-* [Step 17 Final Touches](#step-17-final-touches)
-* [Step 18: Starting to Development <g-emoji class="g-emoji" alias="tada" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png">🎉</g-emoji>](#step-18-starting-to-development-)
+- [Step 1: Creating a new app](#step-1-creating-a-new-app)
+- [Step 2: Removing CRA example files](#step-2-removing-cra-example-files)
+- [Step 3: Make TypeScript more strict](#step-3-make-typescript-more-strict)
+- [Step 4: Installing Prettier](#step-4-installing-prettier)
+- [Step 5: Installing ESLint](#step-5-installing-eslint)
+- [Step 6: Enabling Sass](#step-6-enabling-sass)
+- [Step 7: Installing stylelint](#step-7-installing-stylelint)
+- [Step 8: Setting up our test environment](#step-8-setting-up-our-test-environment)
+- [Step 9: Enabling hot reloading](#step-9-enabling-hot-reloading)
+- [Step 10: Organizing Folder Structure](#step-10-organizing-folder-structure)
+- [Step 11: Adding Storybook](#step-11-adding-storybook)
+- [Step 12: Adding React Router](#step-12-adding-react-router)
+- [Step 13: Enabling code-splitting](#step-13-enabling-code-splitting)
+- [Step 14: Adding CircleCI config](#step-14-adding-circleci-config)
+- [Step 15: Auto-deploy to Surge.sh](#step-15-auto-deploy-to-surgesh)
+- [Step 16: Github Settings](#step-16-github-settings)
+- [Step 17 Final Touches](#step-17-final-touches)
+- [Step 18: Starting to Development <g-emoji class="g-emoji" alias="tada" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png">🎉</g-emoji>](#step-18-starting-to-development-)
 
 ## Step 1: Creating a new app
 
@@ -86,7 +86,7 @@ Also, we want to enable format on save on VSCode.
 
 ```json
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
 ```
 
@@ -105,13 +105,12 @@ We want to have consistency in our codebase and also want to catch mistakes. So,
 ```sh
 yarn add eslint @atolye15/eslint-config --dev
 ```
+
 `.eslintrc`
 
 ```jsonc
 {
-  "extends": [
-    "@atolye15/eslint-config"
-  ]
+  "extends": ["@atolye15/eslint-config"]
 }
 ```
 
@@ -180,13 +179,6 @@ Finally, we need to update `package.json` and `.vscode/settings.json`
 "format": "yarn run format:ts && yarn run format:css"
 ```
 
-`.vscode/settings.json`
-
-```json
-// ... ,
-"prettier.stylelintIntegration": true
-```
-
 ## Step 8: Setting up our test environment
 
 We'll use `jest` with `enzyme`.
@@ -251,8 +243,8 @@ Before the testing, we need to add our setup file to initialize enzyme.
 `src/setupTests.ts`
 
 ```ts
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 configure({ adapter: new Adapter() });
 ```
@@ -262,11 +254,11 @@ With this config, we are able to run tests with snapshots and create coverage. L
 `src/App.test.tsx`
 
 ```tsx
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
+import React from "react";
+import { shallow } from "enzyme";
+import App from "./App";
 
-it('runs correctly', () => {
+it("runs correctly", () => {
   const wrapper = shallow(<App />);
 
   expect(wrapper).toMatchSnapshot();
@@ -303,11 +295,11 @@ Also we need to update hot reloader config.
 `src/index.tsx`
 
 ```tsx
-import { setConfig } from 'react-hot-loader';
+import { setConfig } from "react-hot-loader";
 
 setConfig({
   ignoreSFC: true,
-  pureRender: true,
+  pureRender: true
 });
 ```
 
@@ -315,13 +307,13 @@ In order to update babel config for hot loader, we need to create a `config-over
 
 ```ts
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { override, addBabelPlugin, addWebpackAlias } = require('customize-cra');
+const { override, addBabelPlugin, addWebpackAlias } = require("customize-cra");
 
 module.exports = override(
-  addBabelPlugin('react-hot-loader/babel'),
+  addBabelPlugin("react-hot-loader/babel"),
   addWebpackAlias({
-    'react-dom': '@hot-loader/react-dom',
-  }),
+    "react-dom": "@hot-loader/react-dom"
+  })
 );
 ```
 
@@ -330,8 +322,8 @@ Lastly, we need to use hot HOC.
 `src/App.tsx`
 
 ```tsx
-import React from 'react';
-import { hot } from 'react-hot-loader/root';
+import React from "react";
+import { hot } from "react-hot-loader/root";
 
 export default hot(App);
 ```
@@ -401,12 +393,6 @@ We need to initialize the Storybook on our project.
 npx -p @storybook/cli sb init --type react
 ```
 
-After that, you may need to add types.
-
-```sh
-yarn add @types/storybook__react --dev
-```
-
 We also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories (Optional but recommended).
 
 ```sh
@@ -423,15 +409,15 @@ module.exports = ({ config, mode }) => {
     test: /\.(ts|tsx)$/,
     use: [
       {
-        loader: require.resolve('babel-loader'),
+        loader: require.resolve("babel-loader"),
         options: {
-          presets: [require.resolve('babel-preset-react-app')],
-        },
+          presets: [require.resolve("babel-preset-react-app")]
+        }
       },
-      require.resolve('react-docgen-typescript-loader'),
-    ],
+      require.resolve("react-docgen-typescript-loader")
+    ]
   });
-  config.resolve.extensions.push('.ts', '.tsx');
+  config.resolve.extensions.push(".ts", ".tsx");
   return config;
 };
 ```
@@ -441,11 +427,11 @@ Since we use `typescript`, we can change the file extensions (`addons` and `conf
 `.storybook/config.ts`
 
 ```ts
-import { configure, addDecorator } from '@storybook/react';
-import { withInfo } from '@storybook/addon-info';
+import { configure, addDecorator } from "@storybook/react";
+import { withInfo } from "@storybook/addon-info";
 
 // automatically import all files ending in *.stories.tsx
-const req = require.context('../src/components', true, /.stories.tsx$/);
+const req = require.context("../src/components", true, /.stories.tsx$/);
 
 function loadStories() {
   addDecorator(withInfo);
@@ -462,14 +448,14 @@ Let's create a story for our Button component.
 `src/components/Button/Button.stories.tsx`
 
 ```tsx
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Button from './Button';
+import Button from "./Button";
 
-storiesOf('Button', module)
-  .add('Primary', () => <Button primary>Primary Button</Button>)
-  .add('Secondary', () => <Button secondary>Secondary Button</Button>);
+storiesOf("Button", module)
+  .add("Primary", () => <Button primary>Primary Button</Button>)
+  .add("Secondary", () => <Button secondary>Secondary Button</Button>);
 ```
 
 ## Step 12: Adding React Router
@@ -486,16 +472,16 @@ Then, we need to encapsulate our root component with `BrowserRouter`.
 ```tsx
 // src/index.tsx
 
-import React, { FunctionComponent } from 'react';
-import ReactDOM from 'react-dom';
-import { setConfig } from 'react-hot-loader';
-import { BrowserRouter } from 'react-router-dom';
+import React, { FunctionComponent } from "react";
+import ReactDOM from "react-dom";
+import { setConfig } from "react-hot-loader";
+import { BrowserRouter } from "react-router-dom";
 
-import App from './App';
+import App from "./App";
 
 setConfig({
   ignoreSFC: true,
-  pureRender: true,
+  pureRender: true
 });
 
 const Root: FunctionComponent = () => (
@@ -504,17 +490,17 @@ const Root: FunctionComponent = () => (
   </BrowserRouter>
 );
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById("root"));
 ```
 
 ```tsx
 // src/routes/Routes.tsx
 
-import React, { FunctionComponent } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { FunctionComponent } from "react";
+import { Switch, Route } from "react-router-dom";
 
-import Home from './Home';
-import Feed from './Feed';
+import Home from "./Home";
+import Feed from "./Feed";
 
 const Routes: FunctionComponent = () => (
   <Switch>
@@ -529,10 +515,10 @@ export default Routes;
 ```tsx
 // src/App.tsx
 
-import React, { FunctionComponent, Fragment } from 'react';
-import { hot } from 'react-hot-loader';
+import React, { FunctionComponent, Fragment } from "react";
+import { hot } from "react-hot-loader";
 
-import Routes from './routes';
+import Routes from "./routes";
 
 const App: FunctionComponent = () => (
   <Fragment>
@@ -559,13 +545,13 @@ Now, let's convert our routes to dynamically loaded.
 ```tsx
 // src/routes/Home/index.ts
 
-import Loadable from 'react-loadable';
+import Loadable from "react-loadable";
 
-import Loading from '../../components/Loading';
+import Loading from "../../components/Loading";
 
 const LoadableHome = Loadable({
-  loader: () => import('./Home'),
-  loading: Loading,
+  loader: () => import("./Home"),
+  loading: Loading
 });
 
 export default LoadableHome;
@@ -574,13 +560,13 @@ export default LoadableHome;
 ```tsx
 // src/routes/Feed/index.ts
 
-import Loadable from 'react-loadable';
+import Loadable from "react-loadable";
 
-import Loading from '../../components/Loading';
+import Loading from "../../components/Loading";
 
 const LoadableFeed = Loadable({
-  loader: () => import('./Feed'),
-  loading: Loading,
+  loader: () => import("./Feed"),
+  loading: Loading
 });
 
 export default LoadableFeed;
@@ -667,7 +653,7 @@ yarn add surge --dev
 
 We need to add surge token to CircleCI as an environment variable for our project. Please update project name in the url;
 
-*https://circleci.com/gh/atolye15/{PROJET_NAME}/edit#env-vars*
+_https://circleci.com/gh/atolye15/{PROJET_NAME}/edit#env-vars_
 
 On the page, we'll add `SURGE_LOGIN` and `SURGE_TOKEN` envs with the email and token we got before. We're almost ready. Let's update our CircleCI config.
 
@@ -769,7 +755,7 @@ node_modules/.bin/surge --project ./build --domain cra-starter.surge.sh
 echo 'Deployed 🚀'
 ```
 
-> *NOTE: Of course, you can replace Surge.sh with anything else. For this, you only need to update Surge.sh parts.*
+> _NOTE: Of course, you can replace Surge.sh with anything else. For this, you only need to update Surge.sh parts._
 
 ## Step 16: Github Settings
 
@@ -846,4 +832,4 @@ Everything is done! You can start to develop your next awesome React application
 
 ## Related
 
-* [crna-recipe](https://github.com/atolye15/crna-recipe) - React Native App Creation Recipe
+- [crna-recipe](https://github.com/atolye15/crna-recipe) - React Native App Creation Recipe
