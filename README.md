@@ -180,13 +180,6 @@ Finally, we need to update `package.json` and `.vscode/settings.json`
 "format": "yarn run format:ts && yarn run format:css"
 ```
 
-`.vscode/settings.json`
-
-```json
-// ... ,
-"prettier.stylelintIntegration": true
-```
-
 ## Step 8: Setting up our test environment
 
 We'll use `jest` with `enzyme`.
