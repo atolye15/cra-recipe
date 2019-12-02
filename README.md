@@ -394,7 +394,6 @@ We need to initialize the Storybook on our project.
 npx -p @storybook/cli sb init --type react
 ```
 
-
 We also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories (Optional but recommended).
 
 ```sh
