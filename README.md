@@ -38,7 +38,7 @@ You will get an application which has;
 First of all, we need to initialize our codebase via CRA command.
 
 ```sh
-npx create-react-app cra-starter --typescript
+npx create-react-app cra-starter --template typescript
 cd cra-starter
 yarn start
 ```
