@@ -465,6 +465,12 @@ storiesOf('Button', module)
   .add('Secondary', () => <Button secondary>Secondary Button</Button>);
 ```
 
+Run storybook
+
+```
+yarn storybook
+```
+
 ## Step 12: Adding React Router
 
 As usual, we want to use `react-router` for routing.
