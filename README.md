@@ -199,7 +199,7 @@ We update our `package.json` for jest configuration.
 
 ```json
 "scripts": {
-  "coverage": "yarn run test -- --coverage"
+  "coverage": "yarn run test --coverage"
 },
 "jest": {
   "snapshotSerializers": [
@@ -392,12 +392,6 @@ We need to initialize the Storybook on our project.
 
 ```sh
 npx -p @storybook/cli sb init --type react
-```
-
-After that, you may need to add types.
-
-```sh
-yarn add @types/storybook__react --dev
 ```
 
 We also need to add `info` addon and `react-docgen-typescript-loader` package to show component props on our stories (Optional but recommended).
