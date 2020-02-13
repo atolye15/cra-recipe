@@ -38,7 +38,7 @@ You will get an application which has;
 First of all, we need to initialize our codebase via CRA command.
 
 ```sh
-npx create-react-app cra-starter --typescript
+npx create-react-app cra-starter --template typescript
 cd cra-starter
 yarn start
 ```
@@ -127,12 +127,7 @@ react-app-env.d.ts
 
 ```json
 {
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    { "language": "typescript", "autoFix": true },
-    { "language": "typescriptreact", "autoFix": true }
-  ]
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
 }
 ```
 
