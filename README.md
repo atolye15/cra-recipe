@@ -103,7 +103,7 @@ Finally, we update `package.json` with related format scripts.
 We want to have consistency in our codebase and also want to catch mistakes. So, we need to install ESLint.
 
 ```sh
-yarn add eslint @atolye15/eslint-config --dev
+yarn add @atolye15/eslint-config --dev
 ```
 `.eslintrc`
 
